@@ -1,0 +1,30 @@
+forwardRef в React — это функция, которая позволяет передавать ссылку (ref) от родительского компонента к дочернему. Это полезно, когда нужно получить доступ к DOM-элементу или компоненту внутри дочернего компонента из родительского.
+
+Обычно в React ссылки используются для доступа к DOM-элементам напрямую, а не через обычный поток данных React. С помощью forwardRef можно пробросить ссылку через несколько уровней компонентов.
+
+import React, { forwardRef } from 'react';
+
+const MyInput = forwardRef((props, ref) => (
+  <input ref={ref} {...props} />
+));
+
+function ParentComponent() {
+  const inputRef = React.useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <MyInput ref={inputRef} />
+      <button onClick={focusInput}>Focus the input</button>
+    </div>
+  );
+}
+
+export default ParentComponent;
+
+// ==============================
+
+useImperativeHandle - это хук. Обычно он используется вместе с forwardRef, когда вам нужно предоставить родительскому компоненту доступ к определенным методам или свойствам дочернего компонента, а не просто к самому DOM-элементу
