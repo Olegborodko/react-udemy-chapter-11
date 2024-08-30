@@ -1,0 +1,23 @@
+Задача любого компонента это render, и в App.js 
+
+navigator.geolocation.getCurrentPosition((position) => {
+  const sortedPlaces =
+  sortPlacesByDistance(
+    AVAILABLE_PLACES,
+    position.coords.latitude,
+    position.coords.longitude
+  );
+});
+
+этот код будет брать
+координты по которым пришел юзер, и запусть функцию sortPlacesByDistance
+
+// ================== если внутри этой функции вызвать useState
+setAvailablePlaces, то мы получим бесконечный цыкл,
+потому-что setAvailablePlaces будет перезапускать App component,
+а тот в свою очередь будет снова запускать navigator.geolocation
+и снова setAvailablePlaces
+
+navigator.geolocation.getCurrentPosition((position) => {
+  setAvailablePlaces();
+});
